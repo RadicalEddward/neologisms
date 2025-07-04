@@ -1,0 +1,42 @@
+/* Color pallete (taken from https://colorhunt.co/palette/4338787e60bfe4b1f0ffe1ff)
+#433878
+#7E60BF
+#E4B1F0
+#FFE1FF */
+
+.gradient-background {
+  background: linear-gradient(to right, #7E60BF, #E4B1F0);
+  color: #FFE1FF;
+}
+
+.container {
+  padding: 0;
+}
+
+.main .container > .row {
+  height: 80vh;
+}
+
+.queries {
+  background-color: bisque;
+  height: 30vh;
+}
+
+.correlate-btn {
+  height: 10vh;
+}
+
+.statistics-text {
+  background-color: azure;
+  height: 40vh;
+}
+
+
+#map {
+  background-image: url("../images/map.jpg");
+  height: 100%;
+}
+#statistics-graphs, #top-correlations {
+  background-color: white;
+  height: 100%;
+}
