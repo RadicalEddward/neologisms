@@ -1,13 +1,34 @@
 <%- include("partials/header.ejs") %>
 
 
-
-<h1>just sadfsadfsome test</h1>
-
-
+<div class="container">
+  <div class="row mt-5">
 
 
+    <h1>Enter a word</h1>
+    <form action="/dwds">
+      <input type="text" name="word" placeholder="Enter a word" required>
+      <button type="submit">Search</button>
+    </form>
 
+    <% if (locals.dwdsData && dwdsData.length !== 0) { %>
+      <% dwdsData.forEach((data) => { %>
+        <p>
+          DWDS: Wort: <%= data.input %>, Wortart: <%= data.wortart %>, Lemma: <%= data.lemma %>
+        </p>
+      <% }) %>
+      <% if (locals.dwdsFrequency) { %>
+        <p>
+          DWDS frequency: <%= dwdsFrequency.hits %> of <%= dwdsFrequency.total %> tokens; frequency level (0-6): <%= dwdsFrequency.frequency %>
+        </p>
+      <% } %>
+      <% } else if (locals.error) { %>
+          <p>Error: <%= error %></p>
+      <% } else { %>
+          <p>No data available. Please enter a valid word (or several ones separated by a space).</p>
+      <% } %>
+  </div>
+</div>
 
 
 
