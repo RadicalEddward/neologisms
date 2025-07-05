@@ -32,27 +32,42 @@ app.get("/dwds", async (req, res) => {
     }
   }
   // DWDS API endpoints
-  let endpoints = [
+  const endpointsDWDS = [
     "https://www.dwds.de/api/wb/snippet/",
     "https://www.dwds.de/api/frequency/",
   ]
 
-  // get the results from the DWDS API
+  // Leipzig news corpora endpoints
+  const years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
+  const endpointsLeipzig = years.map((year) => {
+    return `https://api.wortschatz-leipzig.de/ws/words/deu_news_${year}/word/`
+  });
+  
+
+  // get the results from the APIs
   try {
-    const results = await Promise.all(endpoints.map((endpoint) => {
+    // Fetch data from DWDS API
+    const resultsDWDS = await Promise.all(endpointsDWDS.map((endpoint) => {
       return axios.get(endpoint, confiDWDS);
     }))
 
+    // Fetch data from Leipzig news corpora API
+    const resultsLeipzig = await Promise.all(endpointsLeipzig.map((endpoint) => {
+      console.log(`Fetching from: ${endpoint}${word}`);
+      return axios.get(endpoint + word);
+    }));
+
     res.render("index.ejs", {
-      dwdsData: results[0].data,
-      dwdsFrequency: results[1].data,
+      dwdsData: resultsDWDS[0].data,
+      dwdsFrequency: resultsDWDS[1].data,
+      leipzigData: resultsLeipzig.map(result => result.data),
     });
   } catch (error) {
-    console.error("Error fetching data from DWDS API:", error);
+    console.error("Error fetching data with message:", error.message);
     res.render("index.ejs", {
       dwdsData: null,
       dwdsFrequency: null,
-      error: "Error fetching data from DWDS API"
+      error: "Error fetching data."
     });
   }
 

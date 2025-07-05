@@ -13,13 +13,23 @@
 
     <% if (locals.dwdsData && dwdsData.length !== 0) { %>
       <% dwdsData.forEach((data) => { %>
+        <h3>DWDS Entry</h3>
         <p>
           DWDS: Wort: <%= data.input %>, Wortart: <%= data.wortart %>, Lemma: <%= data.lemma %>
         </p>
       <% }) %>
+
       <% if (locals.dwdsFrequency) { %>
+        <h3>DWDS Frequency</h3>
         <p>
           DWDS frequency: <%= dwdsFrequency.hits %> of <%= dwdsFrequency.total %> tokens; frequency level (0-6): <%= dwdsFrequency.frequency %>
+        </p>
+      <% } %>
+
+      <% if (locals.leipzigData) { %>
+        <h3>Leipzig data</h3>
+        <p>
+          <%= leipzigData %>
         </p>
       <% } %>
       <% } else if (locals.error) { %>
