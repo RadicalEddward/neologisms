@@ -3,8 +3,6 @@
 
 <div class="container">
   <div class="row mt-5">
-
-
     <h1>Enter a word</h1>
     <form action="/dwds">
       <input type="text" name="word" placeholder="Enter a word" required>
@@ -23,13 +21,6 @@
         <h3>DWDS Frequency</h3>
         <p>
           DWDS frequency: <%= dwdsFrequency.hits %> of <%= dwdsFrequency.total %> tokens; frequency level (0-6): <%= dwdsFrequency.frequency %>
-        </p>
-      <% } %>
-
-      <% if (locals.leipzigData) { %>
-        <h3>Leipzig data</h3>
-        <p>
-          <%= leipzigData %>
         </p>
       <% } %>
       <% } else if (locals.error) { %>

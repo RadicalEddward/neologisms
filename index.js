@@ -1,5 +1,5 @@
-import express from 'express';
-import axios from 'axios';
+import express from "express";
+import axios from "axios";
 
 const app = express();
 const port = 3000;
@@ -37,13 +37,6 @@ app.get("/dwds", async (req, res) => {
     "https://www.dwds.de/api/frequency/",
   ]
 
-  // Leipzig news corpora endpoints
-  const years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024];
-  const endpointsLeipzig = years.map((year) => {
-    return `https://api.wortschatz-leipzig.de/ws/words/deu_news_${year}/word/`
-  });
-  
-
   // get the results from the APIs
   try {
     // Fetch data from DWDS API
@@ -51,16 +44,9 @@ app.get("/dwds", async (req, res) => {
       return axios.get(endpoint, confiDWDS);
     }))
 
-    // Fetch data from Leipzig news corpora API
-    const resultsLeipzig = await Promise.all(endpointsLeipzig.map((endpoint) => {
-      console.log(`Fetching from: ${endpoint}${word}`);
-      return axios.get(endpoint + word);
-    }));
-
     res.render("index.ejs", {
       dwdsData: resultsDWDS[0].data,
       dwdsFrequency: resultsDWDS[1].data,
-      leipzigData: resultsLeipzig.map(result => result.data),
     });
   } catch (error) {
     console.error("Error fetching data with message:", error.message);
